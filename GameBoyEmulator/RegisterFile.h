@@ -6,11 +6,13 @@ namespace CPU {
 	class RegisterFile
 	{
 		private:
-			ArithmeticTargetRegister a, b, c, d, e, h, l;
-			Register f;
+			Register_unint8 a, b, c, d, e, h, l;
+			Register_unint8 f;
+			Register_uint16 bc, de, hl;
+			Register_uint16 af;
 
 		public:
-			RegisterFile() : a(), b(), c(), d(), e(), f(), h(), l() {}
+			RegisterFile() : a(), b(), c(), d(), e(), f(), h(), l(), af(a, f), bc(b, c), de(d, e), hl(h, l) {}
 
 			// Setters
 			void setA(uint8_t value) { a.set(value); }
@@ -21,16 +23,16 @@ namespace CPU {
 			void setH(uint8_t value) { h.set(value); }
 			void setL(uint8_t value) { l.set(value); }
 
-			void setAF(uint16_t value);
-			void setBC(uint16_t value);
-			void setDE(uint16_t value);
-			void setHL(uint16_t value);
+			void setAF(uint16_t value) { af.set(value); }
+			void setBC(uint16_t value) { bc.set(value); }
+			void setDE(uint16_t value) { de.set(value); }
+			void setHL(uint16_t value) { hl.set(value); }
 
 			// F register lower 4 bits are always 0
-			void setZeroFlag(bool value);
-			void setSubtractionFlag(bool value);
-			void setHalfCarryFlag(bool value);
-			void setCarryFlag(bool value);
+			void setZeroFlag(bool value) { setF(0x80, value); }
+			void setSubtractionFlag(bool value) { setF(0x40, value); }
+			void setHalfCarryFlag(bool value) { setF(0x20, value); }
+			void setCarryFlag(bool value) { setF(0x10, value); }
 
 			// Getters
 			uint8_t getA() const { return a.get(); }
@@ -42,10 +44,10 @@ namespace CPU {
 			uint8_t getH() const { return h.get(); }
 			uint8_t getL() const { return l.get(); }
 
-			uint16_t getAF() const { return (a.get() << 8) | f.get(); }
-			uint16_t getBC() const { return (b.get() << 8) | c.get(); }
-			uint16_t getDE() const { return (d.get() << 8) | e.get(); }
-			uint16_t getHL() const { return (h.get() << 8) | l.get(); }
+			uint16_t getAF() const { return af.get(); }
+			uint16_t getBC() const { return bc.get(); }
+			uint16_t getDE() const { return de.get(); }
+			uint16_t getHL() const { return hl.get(); }
 
 			// Flag Getters
 			bool getZeroFlag() const { return f.get() & 0x80; }
