@@ -128,6 +128,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="ArithmeticLogicUnit.h" />
+    <ClInclude Include="Register.h" />
     <ClInclude Include="RegisterFile.h" />
   </ItemGroup>
   <ItemGroup>

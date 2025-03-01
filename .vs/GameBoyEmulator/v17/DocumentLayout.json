@@ -3,20 +3,24 @@
   "WorkspaceRootPath": "C:\\Users\\simon\\source\\repos\\GameBoyEmulator\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A651B25C-839B-4070-92CC-9B04B8A561EB}|GameBoyEmulator\\GameBoyEmulator.vcxproj|C:\\Users\\simon\\source\\repos\\GameBoyEmulator\\GameBoyEmulator\\ArithmeticLogicUnit.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{A651B25C-839B-4070-92CC-9B04B8A561EB}|GameBoyEmulator\\GameBoyEmulator.vcxproj|solutionrelative:GameBoyEmulator\\ArithmeticLogicUnit.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{A651B25C-839B-4070-92CC-9B04B8A561EB}|GameBoyEmulator\\GameBoyEmulator.vcxproj|C:\\Users\\simon\\source\\repos\\GameBoyEmulator\\GameBoyEmulator\\RegisterFile.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A651B25C-839B-4070-92CC-9B04B8A561EB}|GameBoyEmulator\\GameBoyEmulator.vcxproj|solutionrelative:GameBoyEmulator\\RegisterFile.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A651B25C-839B-4070-92CC-9B04B8A561EB}|GameBoyEmulator\\GameBoyEmulator.vcxproj|C:\\Users\\simon\\source\\repos\\GameBoyEmulator\\GameBoyEmulator\\ArithmeticLogicUnit.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{A651B25C-839B-4070-92CC-9B04B8A561EB}|GameBoyEmulator\\GameBoyEmulator.vcxproj|solutionrelative:GameBoyEmulator\\ArithmeticLogicUnit.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{A651B25C-839B-4070-92CC-9B04B8A561EB}|GameBoyEmulator\\GameBoyEmulator.vcxproj|C:\\Users\\simon\\source\\repos\\GameBoyEmulator\\GameBoyEmulator\\Register.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A651B25C-839B-4070-92CC-9B04B8A561EB}|GameBoyEmulator\\GameBoyEmulator.vcxproj|solutionrelative:GameBoyEmulator\\Register.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{A651B25C-839B-4070-92CC-9B04B8A561EB}|GameBoyEmulator\\GameBoyEmulator.vcxproj|C:\\Users\\simon\\source\\repos\\GameBoyEmulator\\GameBoyEmulator\\RegisterFile.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{A651B25C-839B-4070-92CC-9B04B8A561EB}|GameBoyEmulator\\GameBoyEmulator.vcxproj|solutionrelative:GameBoyEmulator\\RegisterFile.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A651B25C-839B-4070-92CC-9B04B8A561EB}|GameBoyEmulator\\GameBoyEmulator.vcxproj|C:\\Users\\simon\\source\\repos\\GameBoyEmulator\\GameBoyEmulator\\RegisterFile.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{A651B25C-839B-4070-92CC-9B04B8A561EB}|GameBoyEmulator\\GameBoyEmulator.vcxproj|solutionrelative:GameBoyEmulator\\RegisterFile.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{A651B25C-839B-4070-92CC-9B04B8A561EB}|GameBoyEmulator\\GameBoyEmulator.vcxproj|C:\\Users\\simon\\source\\repos\\GameBoyEmulator\\GameBoyEmulator\\ArithmeticLogicUnit.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A651B25C-839B-4070-92CC-9B04B8A561EB}|GameBoyEmulator\\GameBoyEmulator.vcxproj|solutionrelative:GameBoyEmulator\\ArithmeticLogicUnit.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -26,17 +30,17 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 4,
               "Title": "ArithmeticLogicUnit.h",
               "DocumentMoniker": "C:\\Users\\simon\\source\\repos\\GameBoyEmulator\\GameBoyEmulator\\ArithmeticLogicUnit.h",
               "RelativeDocumentMoniker": "GameBoyEmulator\\ArithmeticLogicUnit.h",
               "ToolTip": "C:\\Users\\simon\\source\\repos\\GameBoyEmulator\\GameBoyEmulator\\ArithmeticLogicUnit.h",
               "RelativeToolTip": "GameBoyEmulator\\ArithmeticLogicUnit.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAADAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB0AAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2025-03-01T14:18:12.759Z",
               "IsPinned": true,
@@ -50,7 +54,7 @@
               "RelativeDocumentMoniker": "GameBoyEmulator\\ArithmeticLogicUnit.cpp",
               "ToolTip": "C:\\Users\\simon\\source\\repos\\GameBoyEmulator\\GameBoyEmulator\\ArithmeticLogicUnit.cpp",
               "RelativeToolTip": "GameBoyEmulator\\ArithmeticLogicUnit.cpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAD4AAAACAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-03-01T14:19:04.98Z",
               "IsPinned": true,
@@ -59,28 +63,45 @@
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "RegisterFile.cpp",
-              "DocumentMoniker": "C:\\Users\\simon\\source\\repos\\GameBoyEmulator\\GameBoyEmulator\\RegisterFile.cpp",
-              "RelativeDocumentMoniker": "GameBoyEmulator\\RegisterFile.cpp",
-              "ToolTip": "C:\\Users\\simon\\source\\repos\\GameBoyEmulator\\GameBoyEmulator\\RegisterFile.cpp",
-              "RelativeToolTip": "GameBoyEmulator\\RegisterFile.cpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAATAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-03-01T13:23:19.491Z",
+              "Title": "Register.h",
+              "DocumentMoniker": "C:\\Users\\simon\\source\\repos\\GameBoyEmulator\\GameBoyEmulator\\Register.h",
+              "RelativeDocumentMoniker": "GameBoyEmulator\\Register.h",
+              "ToolTip": "C:\\Users\\simon\\source\\repos\\GameBoyEmulator\\GameBoyEmulator\\Register.h",
+              "RelativeToolTip": "GameBoyEmulator\\Register.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-03-01T15:00:51.853Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 0,
               "Title": "RegisterFile.h",
               "DocumentMoniker": "C:\\Users\\simon\\source\\repos\\GameBoyEmulator\\GameBoyEmulator\\RegisterFile.h",
               "RelativeDocumentMoniker": "GameBoyEmulator\\RegisterFile.h",
               "ToolTip": "C:\\Users\\simon\\source\\repos\\GameBoyEmulator\\GameBoyEmulator\\RegisterFile.h",
               "RelativeToolTip": "GameBoyEmulator\\RegisterFile.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABwAAAAfAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAADAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-03-01T13:23:10.055Z",
+              "WhenOpened": "2025-03-01T15:02:54.128Z",
               "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "RegisterFile.cpp",
+              "DocumentMoniker": "C:\\Users\\simon\\source\\repos\\GameBoyEmulator\\GameBoyEmulator\\RegisterFile.cpp",
+              "RelativeDocumentMoniker": "GameBoyEmulator\\RegisterFile.cpp",
+              "ToolTip": "C:\\Users\\simon\\source\\repos\\GameBoyEmulator\\GameBoyEmulator\\RegisterFile.cpp",
+              "RelativeToolTip": "GameBoyEmulator\\RegisterFile.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-03-01T15:01:16.037Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
             },
             {
               "$type": "Bookmark",

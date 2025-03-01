@@ -3,23 +3,23 @@
 namespace CPU {
     // 16 bit setters
     void RegisterFile::setAF(uint16_t value) {
-        a = (value & 0xFF00) >> 8;
-        f = value & 0xF0; // Only the higher 4 bits are set, lower 4 bits are zero
+        a.set((value & 0xFF00) >> 8);
+        f.set(value & 0xF0); // Only the higher 4 bits are set, lower 4 bits are zero
     }
 
     void RegisterFile::setBC(uint16_t value) {
-        b = (value & 0xFF00) >> 8;
-        c = value & 0x00FF;
+        b.set((value & 0xFF00) >> 8);
+        c.set(value & 0x00FF);
     }
 
     void RegisterFile::setDE(uint16_t value) {
-        d = (value & 0xFF00) >> 8;
-        e = value & 0x00FF;
+        d.set((value & 0xFF00) >> 8);
+        e.set(value & 0x00FF);
     }
 
     void RegisterFile::setHL(uint16_t value) {
-        h = (value & 0xFF00) >> 8;
-        l = value & 0x00FF;
+        h.set((value & 0xFF00) >> 8);
+        l.set(value & 0x00FF);
     }
 
     // Flag Setters
@@ -28,10 +28,10 @@ namespace CPU {
     void RegisterFile::setHalfCarryFlag(bool value) { setF(0x20, value); }
     void RegisterFile::setCarryFlag(bool value) { setF(0x10, value); }
 
-    void RegisterFile::setF(uint8_t mask, bool value) {
-        if (value)
-            f |= mask;
-        else
-            f &= ~mask;
+    void RegisterFile::setF(uint8_t mask, bool value)
+    {
+		uint8_t fValue = f.get();
+		fValue = value ? fValue | mask : fValue & ~mask;
+		f.set(fValue);
     }
 }
