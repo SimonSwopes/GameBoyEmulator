@@ -14,7 +14,7 @@ namespace CPU
 			uint8_t value;
 	};
 
-	class ArithmeticTargetRegister_unint8 : Register_unint8
+	class ArithmeticTargetRegister_unint8 : public Register_unint8
 	{
 		public:
 			ArithmeticTargetRegister_unint8() : Register_unint8() {}
@@ -34,7 +34,7 @@ namespace CPU
 			Register_unint8& low;
 	};
 
-	class ArithmeticTargetRegister_unint16 : Register_uint16
+	class ArithmeticTargetRegister_unint16 : public Register_uint16
 	{
 		public:
 			ArithmeticTargetRegister_unint16(Register_unint8& high, Register_unint8& low) : Register_uint16(high, low) {}

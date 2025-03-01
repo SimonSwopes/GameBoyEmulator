@@ -118,4 +118,48 @@ namespace CPU {
 
 #pragma endregion
 
+#pragma region 16BitArithmetic
+	void ArithmeticLogicUnit::ADD(ArithmeticTargetRegister_unint16 reg)
+	{
+		uint16_t result = getHL() + reg.get();
+		setZeroFlag(false);
+		setSubtractionFlag(false);
+		setHalfCarryFlag((getHL() & 0x0FFF) + (reg.get() & 0x0FFF) > 0x0FFF);
+		setCarryFlag(result > 0xFFFF);
+		setHL(result);
+	}
+	void ArithmeticLogicUnit::ADD(int8_t value)
+	{
+		int16_t sp = static_cast<int16_t>(getSP());
+		int16_t result = sp + value;
+		setZeroFlag(false);
+		setSubtractionFlag(false);
+		setHalfCarryFlag(((sp & 0x0F) + (value & 0x0F)) > 0x0F);
+		setCarryFlag(((sp & 0xFF) + (value & 0xFF)) > 0xFF);
+		setSP(static_cast<uint16_t>(result));
+	}
+
+	void ArithmeticLogicUnit::INC(ArithmeticTargetRegister_unint16 reg)
+	{
+		uint16_t result = reg.get() + 1;
+		reg.set(result);
+	}
+
+	void ArithmeticLogicUnit::DEC(ArithmeticTargetRegister_unint16 reg)
+	{
+		uint16_t result = reg.get() - 1;
+		reg.set(result);
+	}
+
+	void ArithmeticLogicUnit::LD(int8_t value)
+	{
+		int16_t sp = static_cast<int16_t>(getSP());
+		int16_t result = sp + value;
+		setZeroFlag(false);
+		setSubtractionFlag(false);
+		setHalfCarryFlag(((sp & 0x0F) + (value & 0x0F)) > 0x0F);
+		setCarryFlag(((sp & 0xFF) + (value & 0xFF)) > 0xFF);
+		setHL(static_cast<uint16_t>(result));
+	}
+#pragma endregion
 }

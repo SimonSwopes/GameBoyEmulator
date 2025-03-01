@@ -6,13 +6,14 @@ namespace CPU {
 	class RegisterFile
 	{
 		private:
-			Register_unint8 a, b, c, d, e, h, l;
-			Register_unint8 f;
-			Register_uint16 bc, de, hl;
+			ArithmeticTargetRegister_unint8 a, b, c, d, e, h, l;
+			Register_unint8 f, spHigh, spLow;
+			ArithmeticTargetRegister_unint16 bc, de, hl, sp;
 			Register_uint16 af;
 
-		public:
-			RegisterFile() : a(), b(), c(), d(), e(), f(), h(), l(), af(a, f), bc(b, c), de(d, e), hl(h, l) {}
+		protected:
+			RegisterFile() : a(), b(), c(), d(), e(), h(), l(), f(),
+				spHigh(), spLow(), bc(b, c), de(d, e), hl(h, l), af(a, f), sp(spHigh, spLow) {}
 
 			// Setters
 			void setA(uint8_t value) { a.set(value); }
@@ -27,6 +28,7 @@ namespace CPU {
 			void setBC(uint16_t value) { bc.set(value); }
 			void setDE(uint16_t value) { de.set(value); }
 			void setHL(uint16_t value) { hl.set(value); }
+			void setSP(uint16_t value) { sp.set(value); }
 
 			// F register lower 4 bits are always 0
 			void setZeroFlag(bool value) { setF(0x80, value); }
@@ -48,6 +50,7 @@ namespace CPU {
 			uint16_t getBC() const { return bc.get(); }
 			uint16_t getDE() const { return de.get(); }
 			uint16_t getHL() const { return hl.get(); }
+			uint16_t getSP() const { return sp.get(); }
 
 			// Flag Getters
 			bool getZeroFlag() const { return f.get() & 0x80; }

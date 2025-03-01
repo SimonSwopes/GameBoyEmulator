@@ -33,5 +33,11 @@ namespace CPU {
 			void INC(ArithmeticTargetRegister_unint8 reg);
 			void DEC(ArithmeticTargetRegister_unint8 reg);
 
+			// 16 bit arithmetic
+			void ADD(ArithmeticTargetRegister_unint16 reg);
+			void ADD(int8_t);
+			void INC(ArithmeticTargetRegister_unint16 reg);
+			void DEC(ArithmeticTargetRegister_unint16 reg);
+			void LD(int8_t value);
 	};
 }
