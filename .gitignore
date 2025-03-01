@@ -34,3 +34,5 @@
 #VS Files
 *.vsidx
 *.opendb
+.vs/
+*.sln
