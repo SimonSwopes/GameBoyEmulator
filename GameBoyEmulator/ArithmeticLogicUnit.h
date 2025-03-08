@@ -55,5 +55,36 @@ namespace CPU {
 			void INC(ArithmeticTargetRegister_unint16 reg);
 			void DEC(ArithmeticTargetRegister_unint16 reg);
 			void LD(int8_t value);
+
+			// CPU Control Commands
+			void CCF();
+			void SCF();
+
+			// Rotates and Shifts
+			void RRA();
+			void RLA();
+			void RRCA();
+			void RLCA();
+			void SRL(ArithmeticTargetRegister_unint8 reg);
+			void RR(ArithmeticTargetRegister_unint8 reg);
+			void RL(ArithmeticTargetRegister_unint8 reg);
+			void RRC(ArithmeticTargetRegister_unint8 reg);
+			void RLC(ArithmeticTargetRegister_unint8 reg);
+			void SRA(ArithmeticTargetRegister_unint8 reg);
+			void SLA(ArithmeticTargetRegister_unint8 reg);
+			void SWAP(ArithmeticTargetRegister_unint8 reg);
+
+			// May be missing some 16 bit target rotates and shifts
+
+
+
+
+			// Single Bit Operations
+			void BIT(uint8_t bit, uint8_t& value);
+			void BIT(uint8_t bit, ArithmeticTargetRegister_unint8 reg);
+			void SET(uint8_t bit, uint8_t& address);
+			void SET(uint8_t bit, ArithmeticTargetRegister_unint8 reg);
+			void RES(uint8_t bit, uint8_t& address);
+			void RES(uint8_t bit, ArithmeticTargetRegister_unint8 reg);
 	};
 }
