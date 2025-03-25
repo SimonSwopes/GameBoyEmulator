@@ -5,7 +5,7 @@
 namespace CPU {
 	class RegisterFile
 	{
-		private:
+		public:
 			ArithmeticTargetRegister_unint8 a, b, c, d, e, h, l;
 			Register_unint8 f, spHigh, spLow;
 			ArithmeticTargetRegister_unint16 bc, de, hl, sp;

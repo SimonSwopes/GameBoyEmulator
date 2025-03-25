@@ -14,7 +14,7 @@ namespace CPU
 			ArithmeticLogicUnit alu;
 			Ram::MemoryBus memory;
 
-			void step();
+			void step(); // This may need to be public and hit by main
 			void decode(uint8_t opcode);
 			void decodeCBIns();
 	};

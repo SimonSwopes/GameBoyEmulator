@@ -3,7 +3,7 @@
 #pragma once
 namespace CPU {
 
-	class ArithmeticLogicUnit : RegisterFile
+	class ArithmeticLogicUnit : public RegisterFile
 	{
 
 		public:
