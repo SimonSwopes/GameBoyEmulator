@@ -204,138 +204,201 @@ namespace CPU
 				break;
 
 			case 0x40: // LD B, B
+				alu.LD(alu.b, alu.b);
 				break;
 			case 0x41: // LD B, C
+				alu.LD(alu.b, alu.c);
 				break;
 			case 0x42: // LD B, D
+				alu.LD(alu.b, alu.d);
 				break;
 			case 0x43: // LD B, E
+				alu.LD(alu.b, alu.e);
 				break;
 			case 0x44: // LD B, H
+				alu.LD(alu.b, alu.h);
 				break;
 			case 0x45: // LD B, L
+				alu.LD(alu.b, alu.l);
 				break;
 			case 0x46: // LD B, (HL)
+				alu.LD(alu.b, memory.read(alu.hl.get()));
 				break;
 			case 0x47: // LD B, A
+				alu.LD(alu.b, alu.a);
 				break;
 			case 0x48: // LD C, B
+				alu.LD(alu.c, alu.b);
 				break;
 			case 0x49: // LD C, C
+				alu.LD(alu.c, alu.c);
 				break;
 			case 0x4A: // LD C, D
+				alu.LD(alu.c, alu.d);
 				break;
 			case 0x4B: // LD C, E
+				alu.LD(alu.c, alu.e);
 				break;
 			case 0x4C: // LD C, H
+				alu.LD(alu.c, alu.h);
 				break;
 			case 0x4D: // LD C, L
+				alu.LD(alu.c, alu.l);
 				break;
 			case 0x4E: // LD C, (HL)
+				alu.LD(alu.c, memory.read(alu.hl.get()));
 				break;
 			case 0x4F: // LD C, A
+				alu.LD(alu.c, alu.a);
 				break;
 			
 			// 0x50 - 0x5F
 			case 0x50: // LD D, B
+				alu.LD(alu.d, alu.b);
 				break;
 			case 0x51: // LD D, C
+				alu.LD(alu.d, alu.c);
 				break;
 			case 0x52: // LD D, D
+				alu.LD(alu.d, alu.d);
 				break;
 			case 0x53: // LD D, E
+				alu.LD(alu.d, alu.e);
 				break;
 			case 0x54: // LD D, H
+				alu.LD(alu.d, alu.h);
 				break;
 			case 0x55: // LD D, L
+				alu.LD(alu.d, alu.l);
 				break;
 			case 0x56: // LD D, (HL)
+				alu.LD(alu.d, memory.read(alu.hl.get()));
 				break;
 			case 0x57: // LD D, A
+				alu.LD(alu.d, alu.a);
 				break;
 			case 0x58: // LD E, B
+				alu.LD(alu.e, alu.b);
 				break;
 			case 0x59: // LD E, C
+				alu.LD(alu.e, alu.c);
 				break;
 			case 0x5A: // LD E, D
+				alu.LD(alu.e, alu.d);
 				break;
 			case 0x5B: // LD E, E
+				alu.LD(alu.e, alu.e);
 				break;
 			case 0x5C: // LD E, H
+				alu.LD(alu.e, alu.h);
 				break;
 			case 0x5D: // LD E, L
+				alu.LD(alu.e, alu.l);
 				break;
 			case 0x5E: // LD E, (HL)
+				alu.LD(alu.e, memory.read(alu.hl.get()));
 				break;
 			case 0x5F: // LD E, A
+				alu.LD(alu.e, alu.a);
 				break;
 
 			// 0x60 - 0x6F
 			case 0x60: // LD H, B
+				alu.LD(alu.h, alu.b);
 				break;
 			case 0x61: // LD H, C
+				alu.LD(alu.h, alu.c);
 				break;
 			case 0x62: // LD H, D
+				alu.LD(alu.h, alu.d);
 				break;
 			case 0x63: // LD H, E
+				alu.LD(alu.h, alu.e);
 				break;
 			case 0x64: // LD H, H
+				alu.LD(alu.h, alu.h);
 				break;
 			case 0x65: // LD H, L
+				alu.LD(alu.h, alu.l);
 				break;
 			case 0x66: // LD H, (HL)
+				alu.LD(alu.h, memory.read(alu.hl.get()));
 				break;
 			case 0x67: // LD H, A
+				alu.LD(alu.h, alu.a);
 				break;
 			case 0x68: // LD L, B
+				alu.LD(alu.l, alu.b);
 				break;
 			case 0x69: // LD L, C
+				alu.LD(alu.l, alu.c);
 				break;
 			case 0x6A: // LD L, D
+				alu.LD(alu.l, alu.d);
 				break;
 			case 0x6B: // LD L, E
+				alu.LD(alu.l, alu.e);
 				break;
 			case 0x6C: // LD L, H
+				alu.LD(alu.l, alu.h);
 				break;
 			case 0x6D: // LD L, L
+				alu.LD(alu.l, alu.l);
 				break;
 			case 0x6E: // LD L, (HL)
+				alu.LD(alu.l, memory.read(alu.hl.get()));
 				break;
 			case 0x6F: // LD L, A
+				alu.LD(alu.l, alu.a);
 				break;
 
 			// 0x70 - 0x7F
 			case 0x70: // LD (HL), B
+				memory.write(memory.read(alu.hl.get()), alu.b.get());
 				break;
 			case 0x71: // LD (HL), C
+				memory.write(memory.read(alu.hl.get()), alu.c.get());
 				break;
 			case 0x72: // LD (HL), D
+				memory.write(memory.read(alu.hl.get()), alu.d.get());
 				break;
 			case 0x73: // LD (HL), E
+				memory.write(memory.read(alu.hl.get()), alu.e.get());
 				break;
 			case 0x74: // LD (HL), H
+				memory.write(memory.read(alu.hl.get()), alu.h.get());
 				break;
 			case 0x75: // LD (HL), L
+				memory.write(memory.read(alu.hl.get()), alu.l.get());
 				break;
 			case 0x76: // HALT
 				break;
 			case 0x77: // LD (HL), A
+				memory.write(memory.read(alu.hl.get()), alu.a.get());
 				break;
 			case 0x78: // LD A, B
+				alu.LD(alu.a, alu.b);
 				break;
 			case 0x79: // LD A, C
+				alu.LD(alu.a, alu.c);
 				break;
 			case 0x7A: // LD A, D
+				alu.LD(alu.a, alu.d);
 				break;
 			case 0x7B: // LD A, E
+				alu.LD(alu.a, alu.e);
 				break;
 			case 0x7C: // LD A, H
+				alu.LD(alu.a, alu.h);
 				break;
 			case 0x7D: // LD A, L
+				alu.LD(alu.a, alu.l);
 				break;
 			case 0x7E: // LD A, (HL)
+				alu.LD(alu.a, memory.read(alu.hl.get()));
 				break;
 			case 0x7F: // LD A, A
+				alu.LD(alu.a, alu.a);
 				break;
 			
 			// 0x80 - 0x8F
@@ -358,6 +421,7 @@ namespace CPU
 				alu.ADD(alu.l);
 				break;
 			case 0x86: // ADD A, (HL)
+				alu.ADD(memory.read(alu.hl.get()));
 				break;
 			case 0x87: // ADD A, A
 				alu.ADD(alu.a);
@@ -381,6 +445,7 @@ namespace CPU
 				alu.ADC(alu.l);
 				break;
 			case 0x8E: // ADC A, (HL)
+				alu.ADC(memory.read(alu.hl.get()));
 				break;
 			case 0x8F: // ADC A, A
 				alu.ADC(alu.a);
@@ -406,6 +471,7 @@ namespace CPU
 				alu.SUB(alu.l);
 				break;
 			case 0x96: // SUB A, (HL)
+				alu.SUB(memory.read(alu.hl.get()));
 				break;
 			case 0x97: // SUB A, A
 				alu.SUB(alu.a);

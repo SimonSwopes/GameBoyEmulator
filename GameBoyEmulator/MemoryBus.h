@@ -1,5 +1,6 @@
 #pragma once
 #include <cstdint>
+#include "Register.h"
 
 namespace Ram
 {
