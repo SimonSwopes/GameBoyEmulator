@@ -6,14 +6,11 @@ namespace CPU {
 	class RegisterFile
 	{
 		public:
-			ArithmeticTargetRegister_unint8 a, b, c, d, e, h, l;
-			Register_unint8 f, spHigh, spLow;
-			ArithmeticTargetRegister_unint16 bc, de, hl, sp;
-			Register_uint16 af;
+			Register_unint8 a, b, c, d, f, e, h, l;
+			Register_uint16 af, bc, de, hl, sp, pc;
 
-		protected:
-			RegisterFile() : a(), b(), c(), d(), e(), h(), l(), f(),
-				spHigh(), spLow(), bc(b, c), de(d, e), hl(h, l), af(a, f), sp(spHigh, spLow) {}
+			RegisterFile() : a(), b(), c(), d(), e(), h(), l(), f(), pcHigh(), pcLow(),
+				spHigh(), spLow(), bc(b, c), de(d, e), hl(h, l), af(a, f), pc(pcHigh, pcLow), sp(spHigh, spLow) {}
 
 			// Setters
 			void setA(uint8_t value) { a.set(value); }
@@ -59,6 +56,8 @@ namespace CPU {
 			bool getCarryFlag() const { return f.get() & 0x10; }
 
 		private:
+			Register_unint8 pcHigh, pcLow, spHigh, spLow;
 			void setF(uint8_t mask, bool value);
+
 	};
 }
