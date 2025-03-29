@@ -7,17 +7,16 @@
 namespace CPU
 {
 
-	// TODO: Pretty much anything with mem access or immediate values
-	void ControlUnit::step()
+	void ControlUnit::cycle()
 	{
 		// Fetch
-		uint8_t opcode = memory.read(registers.pc.get());
+		uint8_t opcode = fetch();
 
 		// Decode/Execute
 		decode(opcode);
 
 		// Increment PC
-		registers.pc.set(registers.pc.get() + 1);
+		step();
 	}
 
 

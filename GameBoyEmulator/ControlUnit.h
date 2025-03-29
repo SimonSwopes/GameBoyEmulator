@@ -13,9 +13,11 @@ namespace CPU
 			ArithmeticLogicUnit alu;
 			Ram::MemoryBus memory;
 
-			void step(); // This may need to be public and hit by main
+			void cycle(); // This may need to be public and hit by main
 			void decode(uint8_t opcode);
 			void decodeCBIns();
+			uint8_t fetch() { return memory.read(registers.pc.get()); }
+			void step() { registers.pc.set(registers.pc.get() + 1); }
 
 			void setFlags(bool zero, bool sub, bool half, bool carry);
 			void setFlags(uint8_t result, bool sub, bool half, bool carry) { setFlags(result == 0, sub, half, carry); }
@@ -107,6 +109,8 @@ namespace CPU
 			// Loads
 			void LD(Register_unint8 reg, uint8_t value) { reg.set(value); }
 			void LD(Register_unint8 reg1, Register_unint8 reg2) { LD(reg1, reg2.get()); }
+			void LD(Register_uint16 reg, uint16_t value) { reg.set(value); }
+			void LD(Register_uint16 reg1, Register_uint16 reg2) { LD(reg1, reg2.get()); }
 
 	};
 }
