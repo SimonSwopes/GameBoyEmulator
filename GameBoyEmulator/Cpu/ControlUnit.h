@@ -112,5 +112,9 @@ namespace CPU
 			void LD(Register_uint16 reg, uint16_t value) { reg.set(value); }
 			void LD(Register_uint16 reg1, Register_uint16 reg2) { LD(reg1, reg2.get()); }
 
+#pragma region Jump Instructions
+			void JR(bool flagCondition = true);
+			void JP(bool flagCondition = true);
+#pragma endregion
 	};
 }

@@ -102,7 +102,8 @@ namespace CPU
 			case 0x17: // RLA
 				RLA();
 				break;
-			case 0x18: // JR r8 ----------------------------------------------------------------------------------------------------------------------
+			case 0x18: // JR r8
+				JR();
 				break;
 			case 0x19: // ADD HL, DE
 				ADD(registers.de);
@@ -128,7 +129,8 @@ namespace CPU
 				break;
 
 			// 0x20 - 0x2F
-			case 0x20: // JR NZ, r8 ----------------------------------------------------------------------------------------------------------------------
+			case 0x20: // JR NZ, r8
+				JR(!registers.getZeroFlag());
 				break;
 			case 0x21: // LD HL, d16
 				step();
@@ -154,7 +156,8 @@ namespace CPU
 				break;
 			case 0x27: // DAA ----------------------------------------------------------------------------------------------------------------------
 				break;
-			case 0x28: // JR Z, r8 ----------------------------------------------------------------------------------------------------------------------
+			case 0x28: // JR Z, r8
+				JR(registers.getZeroFlag());
 				break;
 			case 0x29: // ADD HL, HL
 				ADD(registers.hl);
@@ -181,7 +184,8 @@ namespace CPU
 				break;
 
 			// 0x30 - 0x3F
-			case 0x30: // JR NC, r8 ----------------------------------------------------------------------------------------------------------------------
+			case 0x30: // JR NC, r8
+				JR(!registers.getCarryFlag());
 				break;
 			case 0x31: // LD SP, d16
 				step();
@@ -207,7 +211,8 @@ namespace CPU
 				break;
 			case 0x37: // SCF ----------------------------------------------------------------------------------------------------------------------
 				break;
-			case 0x38: // JR C, r8 ----------------------------------------------------------------------------------------------------------------------
+			case 0x38: // JR C, r8
+				JR(registers.getCarryFlag());
 				break;
 			case 0x39: // ADD HL, SP
 				ADD(registers.sp);
@@ -637,8 +642,10 @@ namespace CPU
 			case 0xC1: // POP BC
 				break;
 			case 0xC2: // JP NZ, a16
+				JP(!registers.getZeroFlag());
 				break;
 			case 0xC3: // JP a16
+				JP();
 				break;
 			case 0xC4: // CALL NZ, a16
 				break;
@@ -654,6 +661,7 @@ namespace CPU
 			case 0xC9: // RET
 				break;
 			case 0xCA: // JP Z, a16
+				JP(registers.getZeroFlag());
 				break;
 			case 0xCC: // CALL Z, a16
 				break;
@@ -671,6 +679,7 @@ namespace CPU
 			case 0xD1: // POP DE
 				break;
 			case 0xD2: // JP NC, a16
+				JP(!registers.getCarryFlag());
 				break;
 			case 0xD4: // CALL NC, a16
 				break;
@@ -686,6 +695,7 @@ namespace CPU
 			case 0xD9: // RETI
 				break;
 			case 0xDA: // JP C, a16
+				JP(registers.getCarryFlag());
 				break;
 			case 0xDC: // CALL C, a16
 				break;
@@ -723,6 +733,7 @@ namespace CPU
 				setFlags(false, false, (sp & 0x0F) + (offset & 0x0F) > 0x0F, (sp & 0xFF) + (offset & 0xFF) > 0xFF);
 				break;
 			case 0xE9: // JP HL
+				registers.pc.set(registers.hl.get() - 1);
 				break;
 			case 0xEA: // LD (a16), A
 				step();

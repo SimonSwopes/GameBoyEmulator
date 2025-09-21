@@ -229,4 +229,25 @@ namespace CPU
 		setFlags(registers.getZeroFlag(), false, halfCarry , result < registers.hl.get());
 		registers.hl.set(result);
 	}
+
+#pragma region Jump Instructions
+	
+	void ControlUnit::JR(bool flagCondition = true)
+	{
+		step();
+		int8_t offset = static_cast<int8_t>(fetch());
+		if (flagCondition)
+			registers.pc.set(registers.pc.get() + offset - 0x0001);
+	}
+
+	void ControlUnit::JP(bool flagCondition = true)
+	{
+		step();
+		uint16_t address = memory.read16(registers.pc.get());
+		if (flagCondition)
+			registers.pc.set(address - 0x0001);
+		else
+			step();
+	}
+#pragma endregion
 }
