@@ -250,4 +250,45 @@ namespace CPU
 			step();
 	}
 #pragma endregion
+
+
+#pragma region Stack Instructions
+	void ControlUnit::PUSH(Register_uint16& reg)
+	{
+		registers.sp.set(registers.sp.get() - 0x0001);
+		memory.write(registers.sp.get(), (reg.get() >> 8) & 0xFF);
+		registers.sp.set(registers.sp.get() - 0x0001);
+		memory.write(registers.sp.get(), reg.get() & 0xFF);
+	}
+
+	void ControlUnit::POP(Register_uint16& reg)
+	{
+		uint8_t low = memory.read(registers.sp.get());
+		registers.sp.set(registers.sp.get() + 0x0001);
+		uint8_t high = memory.read(registers.sp.get());
+		registers.sp.set(registers.sp.get() + 0x0001);
+		reg.set((high << 8) | low);
+	}
+
+	// Special handling for AF register pair
+	void ControlUnit::PUSH_AF()
+	{
+		registers.sp.set(registers.sp.get() - 0x0001);
+		memory.write(registers.sp.get(), registers.a.get());
+		registers.sp.set(registers.sp.get() - 0x0001);
+		memory.write(registers.sp.get(), registers.getFlags());
+	}
+
+	void ControlUnit::POP_AF()
+	{
+		uint8_t flags = memory.read(registers.sp.get());
+		registers.sp.set(registers.sp.get() + 0x0001);
+		uint8_t a = memory.read(registers.sp.get());
+		registers.sp.set(registers.sp.get() + 0x0001);
+
+		registers.a.set(a);
+		registers.setFlagsFromByte(flags);
+	}
+#pragma endregion
+
 }

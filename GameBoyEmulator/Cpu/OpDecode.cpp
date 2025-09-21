@@ -640,6 +640,7 @@ namespace CPU
 			case 0xC0: // RET NZ
 				break;
 			case 0xC1: // POP BC
+				POP(registers.bc);
 				break;
 			case 0xC2: // JP NZ, a16
 				JP(!registers.getZeroFlag());
@@ -650,6 +651,7 @@ namespace CPU
 			case 0xC4: // CALL NZ, a16
 				break;
 			case 0xC5: // PUSH BC
+				PUSH(registers.bc);
 				break;
 			case 0xC6: // ADD A, d8
 				ADD(memory.read(registers.pc.get()));
@@ -677,6 +679,7 @@ namespace CPU
 			case 0xD0: // RET NC
 				break;
 			case 0xD1: // POP DE
+				POP(registers.de);
 				break;
 			case 0xD2: // JP NC, a16
 				JP(!registers.getCarryFlag());
@@ -684,6 +687,7 @@ namespace CPU
 			case 0xD4: // CALL NC, a16
 				break;
 			case 0xD5: // PUSH DE
+				PUSH(registers.de);
 				break;
 			case 0xD6: // SUB A, d8
 				SUB(memory.read(registers.pc.get()));
@@ -712,11 +716,13 @@ namespace CPU
 				memory.write(address, registers.a.get());
 				break;
 			case 0xE1: // POP HL
+				POP(registers.hl);
 				break;
 			case 0xE2: // LD (C), A
 				memory.write(0xFF00 + registers.c.get(), registers.a.get());
 				break;
 			case 0xE5: // PUSH HL
+				PUSH(registers.hl);
 				break;
 			case 0xE6: // AND A, d8
 				step();
@@ -755,6 +761,7 @@ namespace CPU
 				registers.a.set(memory.read(address));
 				break;
 			case 0xF1: // POP AF
+				POP_AF();
 				break;
 			case 0xF2: // LD A, (C)
 				registers.a.set(memory.read(0xFF00 + registers.c.get()));
@@ -762,6 +769,7 @@ namespace CPU
 			case 0xF3: // DI
 				break;
 			case 0xF5: // PUSH AF
+				PUSH_AF();
 				break;
 			case 0xF6: // OR A, d8
 				step();

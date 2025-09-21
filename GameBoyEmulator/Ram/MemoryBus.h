@@ -4,7 +4,6 @@
 
 namespace Ram
 {
-	// Stack needs to be implemented
 	class MemoryBus
 	{
 		public:

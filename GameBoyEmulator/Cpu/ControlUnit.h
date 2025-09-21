@@ -116,5 +116,14 @@ namespace CPU
 			void JR(bool flagCondition = true);
 			void JP(bool flagCondition = true);
 #pragma endregion
+
+#pragma region Stack Instructions
+			void PUSH(Register_uint16& reg);
+			void POP(Register_uint16& reg);
+
+			// Requires special handling since F register lower 4 bits are always 0
+			void PUSH_AF();
+			void POP_AF();
+#pragma endregion
 	};
 }
