@@ -291,4 +291,45 @@ namespace CPU
 	}
 #pragma endregion
 
+	void ControlUnit::DAA()
+	{
+		uint8_t value = registers.a.get();
+		bool carry = registers.getCarryFlag();
+
+		if (registers.getSubtractFlag())
+		{
+			if (registers.getHalfCarryFlag())
+			{
+				value -= 0x06;
+			}
+
+			if (carry)
+			{
+				value -= 0x60;
+			}
+		}
+		else
+		{
+			if (registers.getHalfCarryFlag() || (value & 0x0F) > 0x09)
+			{
+				value += 0x06;
+			}
+
+			if (carry || value > 0x9F)
+			{
+				value += 0x60;
+				carry = true;
+			}
+			else
+			{
+				carry = false;
+			}
+		}
+
+		registers.a.set(value);
+		registers.setZeroFlag(value == 0);
+		registers.setHalfCarryFlag(false);
+		registers.setCarryFlag(carry);
+
+	}
 }

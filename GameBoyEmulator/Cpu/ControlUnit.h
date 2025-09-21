@@ -103,15 +103,6 @@ namespace CPU
 			void RES(uint8_t bit, Register_unint8 reg) { reg.set(RES(bit, reg.get())); }
 #pragma endregion
 
-			// 16 Bit Arithmetic
-			void ADD(Register_uint16 reg);
-
-			// Loads
-			void LD(Register_unint8 reg, uint8_t value) { reg.set(value); }
-			void LD(Register_unint8 reg1, Register_unint8 reg2) { LD(reg1, reg2.get()); }
-			void LD(Register_uint16 reg, uint16_t value) { reg.set(value); }
-			void LD(Register_uint16 reg1, Register_uint16 reg2) { LD(reg1, reg2.get()); }
-
 #pragma region Jump Instructions
 			void JR(bool flagCondition = true);
 			void JP(bool flagCondition = true);
@@ -125,5 +116,19 @@ namespace CPU
 			void PUSH_AF();
 			void POP_AF();
 #pragma endregion
+
+			// 16 Bit Arithmetic
+			void ADD(Register_uint16 reg);
+
+			// Loads
+			void LD(Register_unint8 reg, uint8_t value) { reg.set(value); }
+			void LD(Register_unint8 reg1, Register_unint8 reg2) { LD(reg1, reg2.get()); }
+			void LD(Register_uint16 reg, uint16_t value) { reg.set(value); }
+			void LD(Register_uint16 reg1, Register_uint16 reg2) { LD(reg1, reg2.get()); }
+
+			// Others
+			void DAA();
+			void SCF() { registers.setCarryFlag(true); registers.setHalfCarryFlag(false); registers.setSubtractionFlag(false); }
+			void CCF() { registers.setCarryFlag(!registers.getCarryFlag()); registers.setHalfCarryFlag(false); registers.setSubtractionFlag(false); }
 	};
 }
