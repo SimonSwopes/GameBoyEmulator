@@ -32,6 +32,10 @@ namespace CPU {
 			void setSubtractionFlag(bool value) { setF(0x40, value); }
 			void setHalfCarryFlag(bool value) { setF(0x20, value); }
 			void setCarryFlag(bool value) { setF(0x10, value); }
+			
+			// Get and set flags as a byte
+			uint8_t getFlags() const { return f.get(); }
+			void setFlagsFromByte(uint8_t flags) { f.set(flags & 0xF0); } // Lower 4 bits always 0
 
 			// Getters
 			uint8_t getA() const { return a.get(); }

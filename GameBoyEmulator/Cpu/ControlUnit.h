@@ -6,21 +6,31 @@ namespace CPU
 	class ControlUnit
 	{
 		public:
-			ControlUnit() : alu(), memory(), registers() {}
+			ControlUnit() : alu(), memory(), registers(), interruptsEnabled(false), halted(false), stopped(false), cycles(0) {}
+			void cycle();
+			uint64_t getCycles() const { return cycles; }
 
 		private:
+			// CPU Properties
+			bool interruptsEnabled;
+			bool halted;
+			bool stopped;
+			uint64_t cycles;
 			RegisterFile registers;
 			ArithmeticLogicUnit alu;
 			Ram::MemoryBus memory;
-
-			void cycle(); // This may need to be public and hit by main
+			
+			// Fetch, Decode, Execute
 			void decode(uint8_t opcode);
 			void decodeCBIns();
 			uint8_t fetch() { return memory.read(registers.pc.get()); }
 			void step() { registers.pc.set(registers.pc.get() + 1); }
-
+			void addCycles(uint8_t cycles) { this->cycles += cycles; }
+			
 			void setFlags(bool zero, bool sub, bool half, bool carry);
 			void setFlags(uint8_t result, bool sub, bool half, bool carry) { setFlags(result == 0, sub, half, carry); }
+
+			void handleInterrupts();
 
 			// Instruction Methods
 
@@ -58,7 +68,6 @@ namespace CPU
 			void CPL();
 #pragma endregion
 
-
 #pragma region Rotates & Shifts
 			void RLCA();
 			void RRCA();
@@ -91,7 +100,6 @@ namespace CPU
 
 #pragma endregion
 
-			
 #pragma region Bit Operations
 			void BIT(uint8_t bit, uint8_t value);
 			void BIT(uint8_t bit, Register_unint8 reg) { BIT(bit, reg.get()); }
@@ -120,21 +128,27 @@ namespace CPU
 
 #pragma region Sub-Routines
 			void RET(bool flagCondition = true);
+			void RETI();
 			void CALL(bool flagCondition = true);
 			void RST(uint8_t address);
 #pragma endregion
 
-
-			// 16 Bit Arithmetic
-			void ADD(Register_uint16 reg);
-
-			// Loads
+#pragma region Loads
 			void LD(Register_unint8 reg, uint8_t value) { reg.set(value); }
 			void LD(Register_unint8 reg1, Register_unint8 reg2) { LD(reg1, reg2.get()); }
 			void LD(Register_uint16 reg, uint16_t value) { reg.set(value); }
 			void LD(Register_uint16 reg1, Register_uint16 reg2) { LD(reg1, reg2.get()); }
+#pragma endregion
+
+#pragma region Interrupts and Clock
+			void EI();
+			void DI();
+			void HALT();
+			void STOP();
+#pragma endregion
 
 			// Others
+			void ADD(Register_uint16 reg);
 			void DAA();
 			void SCF() { registers.setCarryFlag(true); registers.setHalfCarryFlag(false); registers.setSubtractionFlag(false); }
 			void CCF() { registers.setCarryFlag(!registers.getCarryFlag()); registers.setHalfCarryFlag(false); registers.setSubtractionFlag(false); }
