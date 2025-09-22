@@ -653,6 +653,7 @@ namespace CPU
 				JP();
 				break;
 			case 0xC4: // CALL NZ, a16
+				CALL(!registers.getZeroFlag());
 				break;
 			case 0xC5: // PUSH BC
 				PUSH(registers.bc);
@@ -671,9 +672,11 @@ namespace CPU
 			case 0xCA: // JP Z, a16
 				JP(registers.getZeroFlag());
 				break;
-			case 0xCC: // CALL Z, a16 ----------------------------------------------------------------------------------------------------------------------
+			case 0xCC: // CALL Z, a16
+				CALL(registers.getZeroFlag());
 				break;
-			case 0xCD: // CALL a16 ----------------------------------------------------------------------------------------------------------------------
+			case 0xCD: // CALL a16
+				CALL();
 				break;
 			case 0xCE: // ADC A, d8
 				ADC(memory.read(registers.pc.get()));
@@ -691,7 +694,8 @@ namespace CPU
 			case 0xD2: // JP NC, a16
 				JP(!registers.getCarryFlag());
 				break;
-			case 0xD4: // CALL NC, a16 ----------------------------------------------------------------------------------------------------------------------
+			case 0xD4: // CALL NC, a16
+				CALL(!registers.getCarryFlag());
 				break;
 			case 0xD5: // PUSH DE
 				PUSH(registers.de);
@@ -709,7 +713,8 @@ namespace CPU
 			case 0xDA: // JP C, a16
 				JP(registers.getCarryFlag());
 				break;
-			case 0xDC: // CALL C, a16 ----------------------------------------------------------------------------------------------------------------------
+			case 0xDC: // CALL C, a16
+				CALL(registers.getCarryFlag());
 				break;
 			case 0xDE: // SBC A, d8
 				SBC(memory.read(registers.pc.get()));

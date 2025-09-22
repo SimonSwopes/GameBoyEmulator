@@ -109,8 +109,8 @@ namespace CPU
 #pragma endregion
 
 #pragma region Stack Instructions
-			uint16_t POP();
-			void PUSH(Register_uint16& reg);
+			void PUSH(uint16_t value);
+			void PUSH(Register_uint16& reg) { PUSH(reg.get());}
 			void POP(Register_uint16& reg);
 
 			// Requires special handling since F register lower 4 bits are always 0
@@ -120,6 +120,7 @@ namespace CPU
 
 #pragma region Sub-Routines
 			void RET(bool flagCondition = true);
+			void CALL(bool flagCondition = true);
 #pragma endregion
 
 

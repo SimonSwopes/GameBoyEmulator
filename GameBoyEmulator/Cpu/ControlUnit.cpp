@@ -253,12 +253,13 @@ namespace CPU
 
 
 #pragma region Stack Instructions
-	void ControlUnit::PUSH(Register_uint16& reg)
+
+	void ControlUnit::PUSH(uint16_t value)
 	{
 		registers.sp.set(registers.sp.get() - 0x0001);
-		memory.write(registers.sp.get(), (reg.get() >> 8) & 0xFF);
+		memory.write(registers.sp.get(), (value >> 8) & 0xFF);
 		registers.sp.set(registers.sp.get() - 0x0001);
-		memory.write(registers.sp.get(), reg.get() & 0xFF);
+		memory.write(registers.sp.get(), value & 0xFF);
 	}
 
 	void ControlUnit::POP(Register_uint16& reg)
@@ -299,6 +300,23 @@ namespace CPU
 
 		POP(registers.pc);
 		registers.pc.set(registers.pc.get() - 0x0001);
+	}
+
+	void ControlUnit::CALL(bool flagCondition)
+	{
+		step();
+		uint16_t address = memory.read16(registers.pc.get());
+
+		if (!flagCondition)
+		{
+			step();
+			return;
+		}
+
+		uint16_t returnAddress = registers.pc.get() + 0x0001;
+		PUSH(returnAddress);
+
+		registers.pc.set(address - 0x0001);
 	}
 
 #pragma endregion
