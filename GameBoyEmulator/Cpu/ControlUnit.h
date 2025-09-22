@@ -121,6 +121,7 @@ namespace CPU
 #pragma region Sub-Routines
 			void RET(bool flagCondition = true);
 			void CALL(bool flagCondition = true);
+			void RST(uint8_t address);
 #pragma endregion
 
 

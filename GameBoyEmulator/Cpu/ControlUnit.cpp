@@ -319,6 +319,14 @@ namespace CPU
 		registers.pc.set(address - 0x0001);
 	}
 
+	void ControlUnit::RST(uint8_t address)
+	{
+		uint16_t returnAddress = registers.pc.get();
+		PUSH(returnAddress);
+
+		registers.pc.set(address - 0x0001);
+	}
+
 #pragma endregion
 
 	void ControlUnit::DAA()

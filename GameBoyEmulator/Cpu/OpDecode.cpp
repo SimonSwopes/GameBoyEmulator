@@ -661,7 +661,8 @@ namespace CPU
 			case 0xC6: // ADD A, d8
 				ADD(memory.read(registers.pc.get()));
 				break;
-			case 0xC7: // RST 00H ----------------------------------------------------------------------------------------------------------------------
+			case 0xC7: // RST 00H
+				RST(0x0000);
 				break;
 			case 0xC8: // RET Z
 				RET(registers.getZeroFlag());
@@ -681,7 +682,8 @@ namespace CPU
 			case 0xCE: // ADC A, d8
 				ADC(memory.read(registers.pc.get()));
 				break;
-			case 0xCF: // RST 08H ----------------------------------------------------------------------------------------------------------------------
+			case 0xCF: // RST 08H
+				RST(0x0008);
 				break;
 
 			// 0xD0 - 0xDF
@@ -703,7 +705,8 @@ namespace CPU
 			case 0xD6: // SUB A, d8
 				SUB(memory.read(registers.pc.get()));
 				break;
-			case 0xD7: // RST 10H ----------------------------------------------------------------------------------------------------------------------
+			case 0xD7: // RST 10H
+				RST(0x0010);
 				break;
 			case 0xD8: // RET C
 				RET(registers.getCarryFlag());
@@ -719,7 +722,8 @@ namespace CPU
 			case 0xDE: // SBC A, d8
 				SBC(memory.read(registers.pc.get()));
 				break;
-			case 0xDF: // RST 18H ----------------------------------------------------------------------------------------------------------------------
+			case 0xDF: // RST 18H
+				RST(0x0018);
 				break;
 
 			// 0xE0 - 0xEF
@@ -741,7 +745,8 @@ namespace CPU
 				step();
 				AND(memory.read(registers.pc.get()));
 				break;
-			case 0xE7: // RST 20H ----------------------------------------------------------------------------------------------------------------------
+			case 0xE7: // RST 20H
+				RST(0x0020);
 				break;
 			case 0xE8: // ADD SP, r8
 				step();
@@ -764,7 +769,8 @@ namespace CPU
 				step();
 				XOR(memory.read(registers.pc.get()));
 				break;
-			case 0xEF: // RST 28H ----------------------------------------------------------------------------------------------------------------------
+			case 0xEF: // RST 28H
+				RST(0x0028);
 				break;
 
 			// 0xF0 - 0xFF
@@ -788,7 +794,8 @@ namespace CPU
 				step();
 				OR(memory.read(registers.pc.get()));
 				break;
-			case 0xF7: // RST 30H ----------------------------------------------------------------------------------------------------------------------
+			case 0xF7: // RST 30H
+				RST(0x0030);
 				break;
 			case 0xF8: // LD HL, SP+r8
 				step();
@@ -813,7 +820,8 @@ namespace CPU
 				step();
 				CP(memory.read(registers.pc.get()));
 				break;
-			case 0xFF: // RST 38H ----------------------------------------------------------------------------------------------------------------------
+			case 0xFF: // RST 38H
+				RST(0x0038);
 				break;
 
 			default: // TODO: Log Error Data Here or handle interrupt
