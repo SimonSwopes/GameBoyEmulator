@@ -291,6 +291,18 @@ namespace CPU
 	}
 #pragma endregion
 
+#pragma region Sub-Routines
+	void ControlUnit::RET(bool flagCondition = true)
+	{
+		if (!flagCondition)
+			return;
+
+		POP(registers.pc);
+		registers.pc.set(registers.pc.get() - 0x0001);
+	}
+
+#pragma endregion
+
 	void ControlUnit::DAA()
 	{
 		uint8_t value = registers.a.get();

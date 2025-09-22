@@ -639,8 +639,9 @@ namespace CPU
 				CP(registers.a);
 				break;
 
-			// 0xC0 - 0xCF ----------------------------------------------------------------------------------------------------------------------
+			// 0xC0 - 0xCF
 			case 0xC0: // RET NZ
+				RET(!registers.getZeroFlag());
 				break;
 			case 0xC1: // POP BC
 				POP(registers.bc);
@@ -659,27 +660,30 @@ namespace CPU
 			case 0xC6: // ADD A, d8
 				ADD(memory.read(registers.pc.get()));
 				break;
-			case 0xC7: // RST 00H
+			case 0xC7: // RST 00H ----------------------------------------------------------------------------------------------------------------------
 				break;
 			case 0xC8: // RET Z
+				RET(registers.getZeroFlag());
 				break;
 			case 0xC9: // RET
+				RET();
 				break;
 			case 0xCA: // JP Z, a16
 				JP(registers.getZeroFlag());
 				break;
-			case 0xCC: // CALL Z, a16
+			case 0xCC: // CALL Z, a16 ----------------------------------------------------------------------------------------------------------------------
 				break;
-			case 0xCD: // CALL a16
+			case 0xCD: // CALL a16 ----------------------------------------------------------------------------------------------------------------------
 				break;
 			case 0xCE: // ADC A, d8
 				ADC(memory.read(registers.pc.get()));
 				break;
-			case 0xCF: // RST 08H
+			case 0xCF: // RST 08H ----------------------------------------------------------------------------------------------------------------------
 				break;
 
-			// 0xD0 - 0xDF ----------------------------------------------------------------------------------------------------------------------
+			// 0xD0 - 0xDF
 			case 0xD0: // RET NC
+				RET(!registers.getCarryFlag());
 				break;
 			case 0xD1: // POP DE
 				POP(registers.de);
@@ -687,7 +691,7 @@ namespace CPU
 			case 0xD2: // JP NC, a16
 				JP(!registers.getCarryFlag());
 				break;
-			case 0xD4: // CALL NC, a16
+			case 0xD4: // CALL NC, a16 ----------------------------------------------------------------------------------------------------------------------
 				break;
 			case 0xD5: // PUSH DE
 				PUSH(registers.de);
@@ -695,24 +699,25 @@ namespace CPU
 			case 0xD6: // SUB A, d8
 				SUB(memory.read(registers.pc.get()));
 				break;
-			case 0xD7: // RST 10H
+			case 0xD7: // RST 10H ----------------------------------------------------------------------------------------------------------------------
 				break;
 			case 0xD8: // RET C
+				RET(registers.getCarryFlag());
 				break;
-			case 0xD9: // RETI
+			case 0xD9: // RETI ----------------------------------------------------------------------------------------------------------------------
 				break;
 			case 0xDA: // JP C, a16
 				JP(registers.getCarryFlag());
 				break;
-			case 0xDC: // CALL C, a16
+			case 0xDC: // CALL C, a16 ----------------------------------------------------------------------------------------------------------------------
 				break;
 			case 0xDE: // SBC A, d8
 				SBC(memory.read(registers.pc.get()));
 				break;
-			case 0xDF: // RST 18H
+			case 0xDF: // RST 18H ----------------------------------------------------------------------------------------------------------------------
 				break;
 
-			// 0xE0 - 0xEF ----------------------------------------------------------------------------------------------------------------------
+			// 0xE0 - 0xEF
 			case 0xE0: // LDH (a8), A
 				step();
 				uint16_t address = 0xFF00 + fetch();
@@ -731,7 +736,7 @@ namespace CPU
 				step();
 				AND(memory.read(registers.pc.get()));
 				break;
-			case 0xE7: // RST 20H
+			case 0xE7: // RST 20H ----------------------------------------------------------------------------------------------------------------------
 				break;
 			case 0xE8: // ADD SP, r8
 				step();
@@ -754,10 +759,10 @@ namespace CPU
 				step();
 				XOR(memory.read(registers.pc.get()));
 				break;
-			case 0xEF: // RST 28H
+			case 0xEF: // RST 28H ----------------------------------------------------------------------------------------------------------------------
 				break;
 
-			// 0xF0 - 0xFF ----------------------------------------------------------------------------------------------------------------------
+			// 0xF0 - 0xFF
 			case 0xF0: // LDH A, (a8)
 				step();
 				uint16_t address = 0xFF00 + fetch();
@@ -769,7 +774,7 @@ namespace CPU
 			case 0xF2: // LD A, (C)
 				registers.a.set(memory.read(0xFF00 + registers.c.get()));
 				break;
-			case 0xF3: // DI
+			case 0xF3: // DI ----------------------------------------------------------------------------------------------------------------------
 				break;
 			case 0xF5: // PUSH AF
 				PUSH_AF();
@@ -778,7 +783,7 @@ namespace CPU
 				step();
 				OR(memory.read(registers.pc.get()));
 				break;
-			case 0xF7: // RST 30H
+			case 0xF7: // RST 30H ----------------------------------------------------------------------------------------------------------------------
 				break;
 			case 0xF8: // LD HL, SP+r8
 				step();
@@ -797,13 +802,13 @@ namespace CPU
 				step();
 				registers.a.set(memory.read(address));
 				break;
-			case 0xFB: // EI
+			case 0xFB: // EI ----------------------------------------------------------------------------------------------------------------------
 				break;
 			case 0xFE: // CP A, d8
 				step();
 				CP(memory.read(registers.pc.get()));
 				break;
-			case 0xFF: // RST 38H
+			case 0xFF: // RST 38H ----------------------------------------------------------------------------------------------------------------------
 				break;
 
 			default: // TODO: Log Error Data Here or handle interrupt

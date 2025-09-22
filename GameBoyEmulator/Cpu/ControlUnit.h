@@ -109,6 +109,7 @@ namespace CPU
 #pragma endregion
 
 #pragma region Stack Instructions
+			uint16_t POP();
 			void PUSH(Register_uint16& reg);
 			void POP(Register_uint16& reg);
 
@@ -116,6 +117,11 @@ namespace CPU
 			void PUSH_AF();
 			void POP_AF();
 #pragma endregion
+
+#pragma region Sub-Routines
+			void RET(bool flagCondition = true);
+#pragma endregion
+
 
 			// 16 Bit Arithmetic
 			void ADD(Register_uint16 reg);
