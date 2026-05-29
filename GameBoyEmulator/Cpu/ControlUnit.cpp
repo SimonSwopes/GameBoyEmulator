@@ -68,7 +68,7 @@ namespace CPU
 		return result;
 	}
 
-	void ControlUnit::INC(Register_unint8 reg)
+	void ControlUnit::INC(Register_unint8& reg)
 	{
 		uint8_t result = INC(reg.get());
 		reg.set(result);
@@ -82,7 +82,7 @@ namespace CPU
 		return result;
 	}
 
-	void ControlUnit::DEC(Register_unint8 reg)
+	void ControlUnit::DEC(Register_unint8& reg)
 	{
 		uint8_t result = DEC(reg.get());
 		reg.set(result);
@@ -179,18 +179,20 @@ namespace CPU
 
 	void ControlUnit::RLA()
 	{
+		uint8_t oldBit7 = registers.a.get() & 0x80;
 		uint8_t carry = registers.getCarryFlag();
 		uint8_t result = alu.RLA(registers.a.get(), carry);
-		setFlags(false, false, false, carry & 0x80);
+		setFlags(false, false, false, oldBit7);
 		registers.a.set(result);
 		addCycles(4);
 	}
 
 	void ControlUnit::RRA()
 	{
+		uint8_t oldBit0 = registers.a.get() & 0x01;
 		uint8_t carry = registers.getCarryFlag();
 		uint8_t result = alu.RRA(registers.a.get(), carry);
-		setFlags(false, false, false, carry & 0x01);
+		setFlags(false, false, false, oldBit0);
 		registers.a.set(result);
 		addCycles(4);
 	}
@@ -215,18 +217,20 @@ namespace CPU
 
 	uint8_t ControlUnit::RL(uint8_t value)
 	{
+		uint8_t oldBit7 = value & 0x80;
 		uint8_t carry = registers.getCarryFlag();
 		uint8_t result = alu.RL(value, carry);
-		setFlags(result, false, false, carry & 0x80);
+		setFlags(result, false, false, oldBit7);
 		addCycles(8);
 		return result;
 	}
 
 	uint8_t ControlUnit::RR(uint8_t value)
 	{
+		uint8_t oldBit0 = value & 0x01;
 		uint8_t carry = registers.getCarryFlag();
 		uint8_t result = alu.RR(value, carry);
-		setFlags(result, false, false, carry & 0x01);
+		setFlags(result, false, false, oldBit0);
 		addCycles(8);
 		return result;
 	}
@@ -271,8 +275,8 @@ namespace CPU
 	
 	void ControlUnit::JR(bool flagCondition)
 	{
-		step();
 		int8_t offset = static_cast<int8_t>(fetch());
+		step();
 		if (flagCondition) {
 			registers.pc.set(registers.pc.get() + offset);
 			addCycles(12);
@@ -283,13 +287,12 @@ namespace CPU
 
 	void ControlUnit::JP(bool flagCondition)
 	{
-		step();
 		uint16_t address = memory.read16(registers.pc.get());
+		step(); step();
 		if (flagCondition) {
 			registers.pc.set(address);
 			addCycles(16);
 		} else {
-			step();
 			addCycles(12);
 		}
 	}
@@ -348,39 +351,36 @@ namespace CPU
 		}
 
 		POP(registers.pc);
-		addCycles(20); // 8 + 12 from POP
+		addCycles(8); // 12 (POP) + 8 = 20 total
 	}
 
 	void ControlUnit::CALL(bool flagCondition)
 	{
-		step();
 		uint16_t address = memory.read16(registers.pc.get());
+		step(); step();
 
 		if (!flagCondition) {
-			step();
 			addCycles(12);
 			return;
 		}
 
-		uint16_t returnAddress = registers.pc.get() + 0x0001;
-		PUSH(returnAddress);
+		PUSH(registers.pc.get());
 		registers.pc.set(address);
-		addCycles(24); // 8 + 16 from PUSH
+		addCycles(8); // 16 (PUSH) + 8 = 24 total
 	}
 
 	void ControlUnit::RST(uint8_t address)
 	{
-		uint16_t returnAddress = registers.pc.get();
-		PUSH(returnAddress);
+		PUSH(registers.pc.get());
 		registers.pc.set(address);
-		addCycles(16); // Not counting PUSH cycles as they're added in PUSH
+		// 16 cycles from PUSH — no extra needed
 	}
 
 	void ControlUnit::RETI()
 	{
-		RET();
+		POP(registers.pc);      // 12 cycles
 		interruptsEnabled = true;
-		addCycles(16);
+		addCycles(4);           // 12 + 4 = 16 total
 	}
 
 #pragma endregion
@@ -400,30 +400,27 @@ namespace CPU
 
 		if (pendingInterrupts & 0x01) {  // V-Blank
 			registers.pc.set(0x0040);
-			memory.write(0xFF0F, interruptFlag & ~0x01);  // Clear interrupt flag
-			addCycles(20);
+			memory.write(0xFF0F, interruptFlag & ~0x01);
 		}
 		else if (pendingInterrupts & 0x02) {  // LCD STAT
 			registers.pc.set(0x0048);
 			memory.write(0xFF0F, interruptFlag & ~0x02);
-			addCycles(20);
 		}
 		else if (pendingInterrupts & 0x04) {  // Timer
 			registers.pc.set(0x0050);
 			memory.write(0xFF0F, interruptFlag & ~0x04);
-			addCycles(20);
 		}
 		else if (pendingInterrupts & 0x08) {  // Serial
 			registers.pc.set(0x0058);
 			memory.write(0xFF0F, interruptFlag & ~0x08);
-			addCycles(20);
 		}
 		else if (pendingInterrupts & 0x10) {  // Joypad
 			registers.pc.set(0x0060);
 			memory.write(0xFF0F, interruptFlag & ~0x10);
-			addCycles(20);
 		}
-	
+		addCycles(4); // 16 (PUSH) + 4 = 20 total for interrupt dispatch
+	}
+
 	void ControlUnit::EI()
 	{
 		interruptsEnabled = true;
@@ -461,7 +458,7 @@ namespace CPU
 	void ControlUnit::ADD(Register_uint16 reg)
 	{
 		uint16_t result = alu.ADD(registers.hl.get(), reg.get());
-		bool halfCarry = (registers.hl.get() & 0x0FFF) + (registers.bc.get() & 0x0FFF) > 0x0FFF;
+		bool halfCarry = (registers.hl.get() & 0x0FFF) + (reg.get() & 0x0FFF) > 0x0FFF;
 		setFlags(registers.getZeroFlag(), false, halfCarry, result < registers.hl.get());
 		registers.hl.set(result);
 		addCycles(8);

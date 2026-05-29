@@ -8,7 +8,7 @@ namespace Ram
 	{
 		public:
             MemoryBus() {
-                for (int i = 0; i < 0xFFFF; i++) {
+                for (int i = 0; i <= 0xFFFF; i++) {
                     memory[i] = 0;
                 }
                 
@@ -33,7 +33,7 @@ namespace Ram
             static const uint8_t JOYPAD_INTERRUPT = 4;
 
 		private:
-			uint8_t memory[0xFFFF];
+			uint8_t memory[0x10000];
 	};
 }
 

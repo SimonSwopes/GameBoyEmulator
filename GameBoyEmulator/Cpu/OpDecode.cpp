@@ -24,9 +24,8 @@ namespace CPU
 				addCycles(4);
 				break;
 			case 0x01: // LD BC, d16
-				step();
 				registers.bc.set(memory.read16(registers.pc.get()));
-				step();
+				step(); step();
 				addCycles(12);
 				break;
 			case 0x02: // LD (BC), A
@@ -43,20 +42,21 @@ namespace CPU
 				DEC(registers.b);
 				break;
 			case 0x06: // LD B, d8
-				step();
 				registers.b.set(fetch());
+				step();
 				addCycles(8);
 				break;
 			case 0x07: // RLCA
 				RLCA();
 				break;
 			case 0x08: // LD (a16), SP
-				step();
+				{
 				uint16_t address = memory.read16(registers.pc.get());
-				step();
+				step(); step();
 				memory.write(address, registers.sp.get());
 				addCycles(20);
 				break;
+				}
 			case 0x09: // ADD HL, BC
 				ADD(registers.bc);
 				break;
@@ -74,8 +74,8 @@ namespace CPU
 				DEC(registers.c);
 				break;
 			case 0x0E: // LD C, d8
-				step();
 				registers.c.set(fetch());
+				step();
 				addCycles(8);
 				break;
 			case 0x0F: // RRCA
@@ -88,9 +88,8 @@ namespace CPU
 				step(); // Skip the next byte (0x00)
 				break;
 			case 0x11: // LD DE, d16
-				step();
 				registers.de.set(memory.read16(registers.pc.get()));
-				step();
+				step(); step();
 				addCycles(12);
 				break;
 			case 0x12: // LD (DE), A
@@ -107,8 +106,8 @@ namespace CPU
 				DEC(registers.d);
 				break;
 			case 0x16: // LD D, d8
-				step();
 				registers.d.set(fetch());
+				step();
 				addCycles(8);
 				break;
 			case 0x17: // RLA
@@ -134,8 +133,8 @@ namespace CPU
 				DEC(registers.e);
 				break;
 			case 0x1E: // LD E, d8
-				step();
 				registers.e.set(fetch());
+				step();
 				addCycles(8);
 				break;
 			case 0x1F: // RRA
@@ -147,9 +146,8 @@ namespace CPU
 				JR(!registers.getZeroFlag());
 				break;
 			case 0x21: // LD HL, d16
-				step();
 				registers.hl.set(memory.read16(registers.pc.get()));
-				step();
+				step(); step();
 				addCycles(12);
 				break;
 			case 0x22: // LD (HL+), A
@@ -167,8 +165,8 @@ namespace CPU
 				DEC(registers.h);
 				break;
 			case 0x26: // LD H, d8
-				step();
 				registers.h.set(fetch());
+				step();
 				addCycles(8);
 				break;
 			case 0x27: // DAA
@@ -195,8 +193,8 @@ namespace CPU
 				DEC(registers.l);
 				break;
 			case 0x2E: // LD L, d8
-				step();
 				registers.l.set(fetch());
+				step();
 				addCycles(8);
 				break;
 			case 0x2F: // CPL
@@ -208,9 +206,8 @@ namespace CPU
 				JR(!registers.getCarryFlag());
 				break;
 			case 0x31: // LD SP, d16
-				step();
 				registers.sp.set(memory.read16(registers.pc.get()));
-				step();
+				step(); step();
 				addCycles(12);
 				break;
 			case 0x32: // LD (HL-), A
@@ -230,8 +227,8 @@ namespace CPU
 				addCycles(12);
 				break;
 			case 0x36: // LD (HL), d8
-				step();
 				memory.write(registers.hl.get(), fetch());
+				step();
 				addCycles(12);
 				break;
 			case 0x37: // SCF
@@ -259,8 +256,8 @@ namespace CPU
 				DEC(registers.a);
 				break;
 			case 0x3E: // LD A, d8
-				step();
 				registers.a.set(fetch());
+				step();
 				addCycles(8);
 				break;
 			case 0x3F: // CCF
@@ -751,8 +748,8 @@ namespace CPU
 				PUSH(registers.bc);
 				break;
 			case 0xC6: // ADD A, d8
-				step();
-				ADD(fetch());
+				ADD(fetch()); step();
+				addCycles(4);
 				break;
 			case 0xC7: // RST 00H
 				RST(0x0000);
@@ -773,8 +770,8 @@ namespace CPU
 				CALL();
 				break;
 			case 0xCE: // ADC A, d8
-				step();
-				ADC(fetch());
+				ADC(fetch()); step();
+				addCycles(4);
 				break;
 			case 0xCF: // RST 08H
 				RST(0x0008);
@@ -797,8 +794,8 @@ namespace CPU
 				PUSH(registers.de);
 				break;
 			case 0xD6: // SUB A, d8
-				step();
-				SUB(fetch());
+				SUB(fetch()); step();
+				addCycles(4);
 				break;
 			case 0xD7: // RST 10H
 				RST(0x0010);
@@ -816,8 +813,8 @@ namespace CPU
 				CALL(registers.getCarryFlag());
 				break;
 			case 0xDE: // SBC A, d8
-				step();
-				SBC(fetch());
+				SBC(fetch()); step();
+				addCycles(4);
 				break;
 			case 0xDF: // RST 18H
 				RST(0x0018);
@@ -825,11 +822,13 @@ namespace CPU
 
 			// 0xE0 - 0xEF
 			case 0xE0: // LDH (a8), A
-				step();
+				{
 				uint16_t address = 0xFF00 + fetch();
+				step();
 				memory.write(address, registers.a.get());
 				addCycles(12);
 				break;
+				}
 			case 0xE1: // POP HL
 				POP(registers.hl);
 				break;
@@ -841,35 +840,38 @@ namespace CPU
 				PUSH(registers.hl);
 				break;
 			case 0xE6: // AND A, d8
-				step();
-				AND(fetch());
+				AND(fetch()); step();
+				addCycles(4);
 				break;
 			case 0xE7: // RST 20H
 				RST(0x0020);
 				break;
 			case 0xE8: // ADD SP, r8
-				step();
+				{
 				int8_t offset = static_cast<int8_t>(fetch());
+				step();
 				uint16_t sp = registers.sp.get();
 				uint16_t result = sp + offset;
 				registers.sp.set(result);
 				setFlags(false, false, (sp & 0x0F) + (offset & 0x0F) > 0x0F, (sp & 0xFF) + (offset & 0xFF) > 0xFF);
 				addCycles(16);
 				break;
+				}
 			case 0xE9: // JP HL
 				registers.pc.set(registers.hl.get());
 				addCycles(4);
 				break;
 			case 0xEA: // LD (a16), A
-				step();
+				{
 				uint16_t address = memory.read16(registers.pc.get());
-				step();
+				step(); step();
 				memory.write(address, registers.a.get());
 				addCycles(16);
 				break;
+				}
 			case 0xEE: // XOR A, d8
-				step();
-				XOR(fetch());
+				XOR(fetch()); step();
+				addCycles(4);
 				break;
 			case 0xEF: // RST 28H
 				RST(0x0028);
@@ -877,11 +879,13 @@ namespace CPU
 
 			// 0xF0 - 0xFF
 			case 0xF0: // LDH A, (a8)
-				step();
+				{
 				uint16_t address = 0xFF00 + fetch();
+				step();
 				registers.a.set(memory.read(address));
 				addCycles(12);
 				break;
+				}
 			case 0xF1: // POP AF
 				POP_AF();
 				break;
@@ -896,38 +900,41 @@ namespace CPU
 				PUSH_AF();
 				break;
 			case 0xF6: // OR A, d8
-				step();
-				OR(fetch());
+				OR(fetch()); step();
+				addCycles(4);
 				break;
 			case 0xF7: // RST 30H
 				RST(0x0030);
 				break;
 			case 0xF8: // LD HL, SP+r8
-				step();
+				{
 				int8_t offset = static_cast<int8_t>(fetch());
+				step();
 				uint16_t sp = registers.sp.get();
 				uint16_t result = sp + offset;
 				registers.hl.set(result);
 				setFlags(false, false, (sp & 0x0F) + (offset & 0x0F) > 0x0F, (sp & 0xFF) + (offset & 0xFF) > 0xFF);
 				addCycles(12);
 				break;
+				}
 			case 0xF9: // LD SP, HL
 				LD(registers.sp, registers.hl);
 				addCycles(8);
 				break;
 			case 0xFA: // LD A, (a16)
-				step();
+				{
 				uint16_t address = memory.read16(registers.pc.get());
-				step();
+				step(); step();
 				registers.a.set(memory.read(address));
 				addCycles(16);
 				break;
+				}
 			case 0xFB: // EI
 				EI();
 				break;
 			case 0xFE: // CP A, d8
-				step();
-				CP(fetch());
+				CP(fetch()); step();
+				addCycles(4);
 				break;
 			case 0xFF: // RST 38H
 				RST(0x0038);
@@ -945,6 +952,7 @@ namespace CPU
 	void ControlUnit::decodeCBIns()
 	{
 		uint8_t opcode = fetch();
+		step();
 
 #pragma region CB OP Codes
 
