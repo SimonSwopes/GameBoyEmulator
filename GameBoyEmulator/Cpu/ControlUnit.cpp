@@ -51,6 +51,35 @@ namespace CPU
 		decode(opcode);
 	}
 
+	void ControlUnit::reset()
+	{
+		// Post-boot DMG register state (skips Nintendo boot ROM)
+		registers.a.set(0x01);
+		registers.f.set(0xB0);  // Z=1, N=0, H=1, C=1
+		registers.b.set(0x00);
+		registers.c.set(0x13);
+		registers.d.set(0x00);
+		registers.e.set(0xD8);
+		registers.h.set(0x01);
+		registers.l.set(0x4D);
+		registers.sp.set(0xFFFE);
+		registers.pc.set(0x0100);
+
+		interruptsEnabled = false;
+		halted = false;
+		stopped = false;
+		cycles = 0;
+
+		// Key I/O registers
+		memory.write(0xFF05, 0x00); // TIMA
+		memory.write(0xFF06, 0x00); // TMA
+		memory.write(0xFF07, 0x00); // TAC
+		memory.write(0xFF0F, 0x00); // IF
+		memory.write(0xFF40, 0x91); // LCDC
+		memory.write(0xFF47, 0xFC); // BGP
+		memory.write(0xFFFF, 0x00); // IE
+	}
+
 	void ControlUnit::setFlags(bool zero, bool sub, bool half, bool carry)
 	{
 		registers.setZeroFlag(zero);

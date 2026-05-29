@@ -8,6 +8,7 @@ namespace CPU
 		public:
 			ControlUnit() : alu(), memory(), registers(), interruptsEnabled(false), halted(false), stopped(false), cycles(0) {}
 			void cycle();
+			void reset();
 			uint64_t getCycles() const { return cycles; }
 
 		private:
