@@ -1,24 +1,31 @@
 #pragma once
 #include <cstdint>
 #include "Register.h"
+#include "../Cartridge/Cartridge.h"
 
 namespace Ram
 {
 	class MemoryBus
 	{
 		public:
-            MemoryBus() {
+            MemoryBus() : cartridge(nullptr) {
                 for (int i = 0; i <= 0xFFFF; i++) {
                     memory[i] = 0;
                 }
-                
+
                 memory[0xFF0F] = 0;  // Interrupt Flag (IF)
                 memory[0xFFFF] = 0;  // Interrupt Enable (IE)
             }
 
-			uint8_t read(uint16_t address) const { return memory[address]; }
-			uint16_t read16(uint16_t address) const { return (memory[address + 1] << 8) | memory[address]; }
-			void write(uint16_t address, uint8_t value) { memory[address] = address > 0x00FF ? value : memory[address]; } // First 256 bytes bootstrap ROM
+            void loadCartridge(Cart::Cartridge& cart) { cartridge = &cart; }
+
+			uint8_t read(uint16_t address) const {
+                if (address <= 0x7FFF && cartridge != nullptr)
+                    return cartridge->read(address);
+                return memory[address];
+            }
+			uint16_t read16(uint16_t address) const { return (read(address + 1) << 8) | read(address); }
+			void write(uint16_t address, uint8_t value) { if (address > 0x7FFF) memory[address] = value; } // 0x0000-0x7FFF is ROM
 			void write(uint16_t address, uint16_t value);
             
 
@@ -34,6 +41,7 @@ namespace Ram
 
 		private:
 			uint8_t memory[0x10000];
+            Cart::Cartridge* cartridge;
 	};
 }
 

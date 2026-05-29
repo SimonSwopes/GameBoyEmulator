@@ -1,6 +1,7 @@
 #pragma once
-#include <cstdint>;
+#include <cstdint>
 #include "Register.h"
+#include "../Cartridge/Cartridge.h"
 namespace CPU
 {
 	class ControlUnit
@@ -9,6 +10,7 @@ namespace CPU
 			ControlUnit() : alu(), memory(), registers(), interruptsEnabled(false), halted(false), stopped(false), cycles(0) {}
 			void cycle();
 			void reset();
+			void loadCartridge(Cart::Cartridge& cart) { memory.loadCartridge(cart); }
 			uint64_t getCycles() const { return cycles; }
 
 		private:
